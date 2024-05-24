@@ -1,19 +1,30 @@
 <script setup>
-    const props = defineProps(['tarefas']);
+    const trashIcon = new URL('../assets/trash-2.svg', import.meta.url).href;
+    const props = defineProps(['tarefas', 'removeTarefa']);
 </script>
 
 <template>
     <ul class="list-group mt-4">
-        <li class="list-group-item custom-list-item-2" v-for="tarefa in props.tarefas">
-            <input @change="evento => tarefa.finalizada = evento.target.checked" :checked="tarefa.finalizada"
-                :id="tarefa.titulo" type="checkbox" />
-            <label :class="{ done: tarefa.finalizada }" class="ms-3" :for="tarefa.titulo">
-                {{ tarefa.titulo }}
-            </label>
-        </li>
-        <li class="list-group-item custom-list-item" v-if="props.tarefas.filter(tarefa => !tarefa.finalizada).length === 0">
-            Não existem tarefas pendentes
-        </li>
+        <li 
+        class="list-group-item custom-list-item-2 d-flex justify-content-between align-items-center" 
+        v-for="(tarefa, index) in props.tarefas" 
+        :key="index">
+        <div class="d-flex align-items-center">
+            <input @change="evento => tarefa.finalizada = evento.target.checked"
+            :checked="tarefa.finalizada"
+            :id="`tarefa-${index}`"
+            type="checkbox"/>
+        <label :class="{ done: tarefa.finalizada }" class="ms-3" :for="`tarefa-${index}`">
+            {{ tarefa.titulo }}
+        </label>
+        </div>
+        <button @click="props.removeTarefa(index)" class="btn btn-sm custom-btn">
+        <img :src="trashIcon" alt="Remover tarefa" class="trash-icon"/>
+        </button>
+    </li>
+    <li class="list-group-item custom-list-item" v-if="props.tarefas.filter(tarefa => !tarefa.finalizada).length === 0">
+        Não existem tarefas pendentes
+    </li>
     </ul>
 </template>
 
@@ -53,5 +64,9 @@
     color: #06141B; 
     outline: 0; 
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); 
+}
+.trash-icon {
+    width: 16px;
+    height: 16px;
 }
 </style>
