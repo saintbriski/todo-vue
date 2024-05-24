@@ -10,7 +10,7 @@ const props = defineProps(['cadastraTarefa', 'tarefaTemp', 'trocarFiltro', 'edit
                     type="text" placeholder="Digite aqui a descrição da tarefa" class="custom-input" />
             </div>
             <div class="col-md-2">
-                <button type="submit" class="btn custom-btn">Cadastrar</button>
+                <button type="submit" class="btn custom-btn">Adicionar</button>
             </div>
             <div class="col-md-2">
                 <select @change="props.trocarFiltro" class="custom-input">
@@ -39,6 +39,13 @@ const props = defineProps(['cadastraTarefa', 'tarefaTemp', 'trocarFiltro', 'edit
         border-radius: 0.25rem;
         transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         cursor: pointer;
+    }
+
+    @media (max-width: 769px) {
+        .custom-btn {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
     }
     .custom-btn:hover {
         color: #fff;
